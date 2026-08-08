@@ -370,8 +370,9 @@ body{
 }
 .restaurant-card .img-fallback{
   width:95px;height:95px;border-radius:var(--radius-sm);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:40px;color:white;
+  display:flex;align-items:center;justify-content:center;font-size:46px;
 }
+.restaurant-card img{width:95px;height:95px;border-radius:var(--radius-sm);object-fit:cover;flex-shrink:0;background:#eee}
 .restaurant-info{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
 .restaurant-name-row{display:flex;align-items:center;gap:6px}
 .restaurant-name{font-size:15px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -418,8 +419,9 @@ body{
 .menu-item img{width:85px;height:85px;border-radius:var(--radius-sm);object-fit:cover;flex-shrink:0;background:#eee}
 .menu-item .img-fb{
   width:85px;height:85px;border-radius:var(--radius-sm);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:32px;color:white;
+  display:flex;align-items:center;justify-content:center;font-size:42px;
 }
+.menu-item img{width:85px;height:85px;border-radius:var(--radius-sm);object-fit:cover;flex-shrink:0;background:#eee}
 .menu-item-info{flex:1;min-width:0}
 .menu-item-name{font-size:14px;font-weight:600;margin-bottom:2px}
 .menu-item-desc{font-size:11px;color:var(--text-muted);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -500,7 +502,7 @@ body{
 .order-item img{width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#eee}
 .order-item .oi-fb{
   width:44px;height:44px;border-radius:6px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:20px;color:white;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
 }
 .order-item-name{flex:1;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .order-item-price{font-size:13px;color:var(--red);font-weight:600;text-align:right;min-width:50px}
@@ -656,6 +658,38 @@ body{
   font-size:13px;cursor:pointer;font-family:inherit;margin-top:4px;
 }
 
+/* ===== Coupon Modal ===== */
+.coupon-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.coupon-overlay.show{opacity:1;pointer-events:auto}
+.coupon-panel{width:100%;max-width:430px;background:linear-gradient(180deg,#FF6B35 0%,#FF8C42 80px,#fff 80px);border-radius:20px 20px 0 0;padding:0 20px 30px;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.coupon-overlay.show .coupon-panel{transform:translateY(0)}
+.coupon-handle{width:36px;height:5px;background:rgba(255,255,255,.5);border-radius:3px;margin:12px auto 20px}
+.coupon-panel h3{color:white;font-size:20px;font-weight:800;text-align:center;margin-bottom:4px}
+.coupon-panel .cp-sub{color:rgba(255,255,255,.85);font-size:13px;text-align:center;margin-bottom:16px}
+.coupon-claim-area{text-align:center;margin-bottom:16px}
+.coupon-claim-btn{display:inline-block;padding:14px 40px;border-radius:28px;background:linear-gradient(135deg,#fff,#ffe0c0);color:#FF6B35;font-size:17px;font-weight:800;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.15);font-family:inherit;animation:claimPulse 2s infinite;transition:all .2s}
+@keyframes claimPulse{0%,100%{box-shadow:0 4px 16px rgba(0,0,0,.15)}50%{box-shadow:0 8px 32px rgba(255,255,255,.4),0 4px 16px rgba(0,0,0,.2)}}
+.coupon-claim-btn:active{transform:scale(.95)}
+.coupon-claim-btn:disabled{animation:none;opacity:.5}
+.coupon-reveal{text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center}
+.coupon-reveal .reveal-text{font-size:15px;color:#999}
+.coupon-list{display:flex;flex-direction:column;gap:10px}
+.coupon-card{display:flex;align-items:center;gap:10px;padding:14px;border-radius:12px;background:#FFF9F0;border:1.5px solid #FFE0C0;transition:all .4s;position:relative;overflow:hidden}
+.coupon-card.jackpot{background:linear-gradient(135deg,#FFF5E6,#FFE0C0);border-color:#FFB800;box-shadow:0 4px 16px rgba(255,184,0,.3)}
+.coupon-card.jackpot::before{content:'👑';position:absolute;top:-2px;right:8px;font-size:16px;animation:float 2s ease-in-out infinite}
+.coupon-card .cc-left{width:60px;height:60px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;color:white;font-weight:800}
+.coupon-card .cc-left .cc-amount{font-size:24px;line-height:1}
+.coupon-card .cc-left .cc-unit{font-size:11px;opacity:.9}
+.coupon-card .cc-right{flex:1;min-width:0}
+.coupon-card .cc-title{font-size:14px;font-weight:700;color:#333;margin-bottom:2px}
+.coupon-card .cc-cond{font-size:11px;color:#999}
+.coupon-card .cc-status{flex-shrink:0}
+.coupon-card .cc-use-btn{padding:8px 16px;border-radius:16px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;background:#FFB800;color:#333}
+.coupon-card .cc-use-btn:active{transform:scale(.95)}
+.coupon-card .cc-new{animation:cardPop .5s ease-out}
+@keyframes cardPop{0%{transform:scale(.8);opacity:0}50%{transform:scale(1.03)}100%{transform:scale(1);opacity:1}}
+.coupon-count{text-align:center;font-size:12px;color:#999;margin-top:12px}
+
 /* ===== Toast ===== */
 .toast{
   position:fixed;top:50px;left:50%;transform:translateX(-50%) translateY(-20px);
@@ -697,7 +731,7 @@ img[data-src]{background:#eee}
       </div>
     </div>
     <div class="banner">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=200&fit=crop&crop=center" alt="banner" onerror="this.style.display='none'">
+      <img src="images/banner.png" alt="banner" onerror="this.style.display='none'">
       <div class="banner-dots"><span class="banner-dot active"></span><span class="banner-dot"></span><span class="banner-dot"></span></div>
     </div>
   </div>
@@ -715,9 +749,9 @@ img[data-src]{background:#eee}
     <div class="cat-item" onclick="filterCat('fruit')"><div class="cat-item-img">🍎</div><span class="cat-item-label">水果生鲜</span></div>
   </div>
 
-  <div class="activity-bar">
+  <div class="activity-bar" onclick="openCouponModal()" style="cursor:pointer">
     <span class="icon">🎫</span>
-    <span class="text">天天神券 · 最高可领<span style="color:var(--red);font-weight:600">20元</span>红包</span>
+    <span class="text" id="coupon-bar-text">天天神券 · 最高可领<span style="color:var(--red);font-weight:600">100元</span>无门槛红包！</span>
     <span class="arrow">›</span>
   </div>
 
@@ -742,7 +776,7 @@ img[data-src]{background:#eee}
 <!-- ===== MENU PAGE ===== -->
 <div class="page hidden" id="page-menu">
   <div style="position:relative;flex-shrink:0">
-    <div class="menu-cover-fb" id="menu-cover" style="background:linear-gradient(135deg,#f093fb,#f5576c)">🍲</div>
+    <img class="menu-cover" id="menu-cover" src="images/menu-cover.png" alt="店铺封面" onerror="this.style.display='none'">
     <button class="back-btn" onclick="goBack()">←</button>
   </div>
   <div class="menu-info">
@@ -982,6 +1016,23 @@ img[data-src]{background:#eee}
   </div>
 </div>
 
+<!-- ===== COUPON MODAL ===== -->
+<div class="coupon-overlay" id="coupon-overlay" onclick="if(event.target===this)closeCouponModal()">
+  <div class="coupon-panel">
+    <div class="coupon-handle"></div>
+    <h3>🎫 天天神券</h3>
+    <div class="cp-sub">每天可领一次，最高100元无门槛！</div>
+    <div class="coupon-claim-area">
+      <button class="coupon-claim-btn" id="coupon-claim-btn" onclick="claimCoupon()">🤑 立即领取</button>
+    </div>
+    <div class="coupon-reveal" id="coupon-reveal">
+      <span class="reveal-text">👆 点击上方按钮领券</span>
+    </div>
+    <div class="coupon-list" id="coupon-list"></div>
+    <div class="coupon-count" id="coupon-count"></div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 </div>
@@ -1003,28 +1054,143 @@ img[data-src]{background:#eee}
 
 <script>
 // ==================== UNSPLASH FOOD PHOTOS ====================
-// Reliable Unsplash food photo IDs by category
-const FOOD_IMAGES = {
-  rice: ['photo-1603133872878-684f208fb84b','photo-1569058242567-93de6e36f8f8','photo-1645112412299-70a7ed0d0b7c','photo-1563379926898-05f4575a45d8'],
-  noodle: ['photo-1569718212165-3a8278d5f624','photo-1555126634-323283e090fa','photo-1591814468924-caf88d1232e1','photo-1582878826629-29b7ad1cdc43'],
-  hotpot: ['photo-1617196034796-73dfa7b1fd56','photo-1555939594-58d7cb561ad1','photo-1544025162-d76694265947','photo-1505253758473-96b7015fcd40'],
-  bbq: ['photo-1558030006-450675393462','photo-1555939594-58d7cb561ad1','photo-1529692236671-f1f6cf9683ba','photo-1544025162-d76694265947'],
-  burger: ['photo-1568901346375-23c9450c58cd','photo-1572802419224-296b0aeee0d9','photo-1586816001966-79b736744398','photo-1550547660-d9450f859349'],
-  sushi: ['photo-1579871494447-9811cf80d66c','photo-1553621042-f6e147245754','photo-1540648639573-8c848de23f0a','photo-1611143669185-af224c5e3252'],
-  chicken: ['photo-1626645738196-c2a7c87a8f58','photo-1562967914-608f82629710','photo-1604503468506-a8da13d82791','photo-1567620832903-9fc6debc209f'],
-  milkta: ['photo-1558857563-b371033873b8','photo-1544145945-f90425340c7e','photo-1571934811356-5cc372b59197','photo-1461023058943-07fcbe16d735'],
-  dessert: ['photo-1578985545062-69928b1d9587','photo-1488477181946-6428a0291777','photo-1563805042-7684c019e1cb','photo-1551024601-bec78aea704b'],
-  snack: ['photo-1625220194771-7ebdea0b70b9','photo-1563379926898-05f4575a45d8','photo-1606755962773-d324e1a13086','photo-1576866116707-23c7d9a5e04e'],
-  pizza: ['photo-1565299624946-b28f40a0ae38','photo-1513104890138-7c749659a591','photo-1574071318508-1cdbab80d002','photo-1593560708920-61dd98c46a4e'],
-  salad: ['photo-1512621776951-a57141f2eefd','photo-1540420773420-3366772f4999','photo-1546069901-ba9599a7e63c','photo-1505253716362-afaea1d3d1af'],
-  seafood: ['photo-1615141982883-c7ad0e69fd62','photo-1565680018434-b513d5e5fd47','photo-1559737558-2f5a35f4523f','photo-1559742811-8227736919a7'],
-  fruit: ['photo-1610832958506-aa56368176cf','photo-1519996529935-86ab5c48da2f','photo-1464965911864-746e8c79969f','photo-1488459717020-7fddde40cba3'],
+// ==================== REAL FOOD PHOTOS (verified Unsplash IDs) ====================
+const FP={
+rice:[
+  'photo-1603133872878-684f208fb84b','photo-1569058242567-93de6e36f8f8',
+  'photo-1645112412299-70a7ed0d0b7c','photo-1596797038530-2c107229654b',
+  'photo-1540189549336-e6e99c3679fe','photo-1476224203421-9ac39bcb3327',
+  'photo-1455619452474-d2be8b1e70cd','photo-1414235077428-338989a2e8c0',
+  'photo-1467003909585-2f8a72700288','photo-1432139509613-5c4255a1a894',
+  'photo-1505253758473-96b7015fcd40','photo-1546069901-ba9599a7e63c',
+],
+noodle:[
+  'photo-1569718212165-3a8278d5f624','photo-1555126634-323283e090fa',
+  'photo-1591814468924-caf88d1232e1','photo-1582878826629-29b7ad1cdc43',
+  'photo-1552611052-33e04de3e1aa','photo-1526318893346-25e43b72b717',
+  'photo-1570546179774-7fe79e8adc7b','photo-1504544750208-dc0358e63f7f',
+  'photo-1563379926898-05f4575a45d8','photo-1604908551055-9a38615b7517',
+],
+hotpot:[
+  'photo-1617196034796-73dfa7b1fd56','photo-1555939594-58d7cb561ad1',
+  'photo-1544025162-d76694265947','photo-1563245372-f2e1a4b3e65a',
+  'photo-1583394293214-28ded15ee548','photo-1505253758473-96b7015fcd40',
+  'photo-1604503468506-a8da13d82791','photo-1596797038530-2c107229654b',
+],
+chicken:[
+  'photo-1626645738196-c2a7c87a8f58','photo-1562967914-608f82629710',
+  'photo-1604503468506-a8da13d82791','photo-1567620832903-9fc6debc209f',
+  'photo-1598515214211-89d3c73ae83b','photo-1432139509613-5c4255a1a894',
+  'photo-1615937722923-67f6deaf2cc9','photo-1569058242567-93de6e36f8f8',
+  'photo-1604908551055-9a38615b7517','photo-1645112412299-70a7ed0d0b7c',
+],
+burger:[
+  'photo-1568901346375-23c9450c58cd','photo-1572802419224-296b0aeee0d9',
+  'photo-1586816001966-79b736744398','photo-1550547660-d9450f859349',
+  'photo-1594212699903-fec0965e8d1c','photo-1603060520840-4cf2f2d2fb1f',
+  'photo-1546554137-f86b9593a222','photo-1561758033-d89a9ad46330',
+],
+sushi:[
+  'photo-1579871494447-9811cf80d66c','photo-1553621042-f6e147245754',
+  'photo-1540648639573-8c848de23f0a','photo-1611143669185-af224c5e3252',
+  'photo-1551218808-94e220e084d2','photo-1534482421-64566f976cfa',
+  'photo-1582450871972-ab5ca641643d','photo-1579584425555-c3ce17fd4351',
+],
+milkta:[
+  'photo-1558857563-b371033873b8','photo-1544145945-f90425340c7e',
+  'photo-1571934811356-5cc372b59197','photo-1461023058943-07fcbe16d735',
+  'photo-1525803377221-4f6ccdaa5133','photo-1485808191679-7f8cd570d6a6',
+  'photo-1513002749550-c59d786b8e6c','photo-1563227817-68b2b15fe7e5',
+  'photo-1499638678241-29f23b24a2e5','photo-1556679343-c7306c1976bc',
+],
+dessert:[
+  'photo-1578985545062-69928b1d9587','photo-1488477181946-6428a0291777',
+  'photo-1563805042-7684c019e1cb','photo-1551024601-bec78aea704b',
+  'photo-1509365465985-25d11c17e812','photo-1464349093731-7b321b6ff2b2',
+  'photo-1481391319762-47d514f4b85f','photo-1533134242443-d4fd215305ad',
+],
+snack:[
+  'photo-1625220194771-7ebdea0b70b9','photo-1606755962773-d324e1a13086',
+  'photo-1576866116707-23c7d9a5e04e','photo-1613919113640-257aa8c8cc1e',
+  'photo-1553456558-aff26085d1af','photo-1563379926898-05f4575a45d8',
+  'photo-1604503468506-a8da13d82791','photo-1626645738196-c2a7c87a8f58',
+],
+bbq:[
+  'photo-1558030006-450675393462','photo-1529692236671-f1f6cf9683ba',
+  'photo-1615937722923-67f6deaf2cc9','photo-1555939594-58d7cb561ad1',
+  'photo-1544025162-d76694265947','photo-1604503468506-a8da13d82791',
+  'photo-1505253758473-96b7015fcd40','photo-1626645738196-c2a7c87a8f58',
+],
+pizza:[
+  'photo-1565299624946-b28f40a0ae38','photo-1513104890138-7c749659a591',
+  'photo-1574071318508-1cdbab80d002','photo-1593560708920-61dd98c46a4e',
+  'photo-1594007654729-407eedc4be65','photo-1588315029754-ed603628a2b3',
+],
+seafood:[
+  'photo-1615141982883-c7ad0e69fd62','photo-1565680018434-b513d5e5fd47',
+  'photo-1559737558-2f5a35f4523f','photo-1559742811-8227736919a7',
+  'photo-1565557623262-b51c2513a641','photo-1534604973900-c43ab4c2e0ab',
+],
+salad:[
+  'photo-1512621776951-a57141f2eefd','photo-1540420773420-3366772f4999',
+  'photo-1546069901-ba9599a7e63c','photo-1505253716362-afaea1d3d1af',
+  'photo-1490645935967-10de6ba17061','photo-1498837167922-ddd27525d352',
+],
+fruit:[
+  'photo-1610832958506-aa56368176cf','photo-1464965911864-746e8c79969f',
+  'photo-1488459717020-7fddde40cba3','photo-1519996529935-86ab5c48da2f',
+  'photo-1474979266404-7eaacbcd87e3','photo-1481349753207-1b97e2ae9c45',
+],
 };
-function foodImgUrl(type, idx){
-  const arr = FOOD_IMAGES[type] || FOOD_IMAGES['rice'];
-  const pid = arr[idx % arr.length];
-  return `https://images.unsplash.com/${pid}?w=200&h=200&fit=crop&auto=format`;
+const LOCAL_FP={
+  rice:['images/rice_1.png','images/rice_2.png','images/rice_3.png'],
+  noodle:['images/noodle_1.png','images/noodle_2.png','images/noodle_3.png'],
+  hotpot:['images/hotpot_1.png','images/hotpot_2.png','images/hotpot_3.png'],
+  chicken:['images/chicken_1.png','images/chicken_2.png','images/chicken_3.png'],
+  burger:['images/burger_1.png','images/burger_2.png','images/burger_3.png'],
+  sushi:['images/sushi_1.png','images/sushi_2.png','images/sushi_3.png'],
+  milkta:['images/milkta_1.png','images/milkta_2.png','images/milkta_3.png'],
+  dessert:['images/dessert_1.png','images/dessert_2.png','images/dessert_3.png'],
+  snack:['images/snack_1.png','images/snack_2.png','images/snack_3.png'],
+  bbq:['images/bbq_1.png','images/bbq_2.png','images/bbq_3.png'],
+  pizza:['images/pizza_1.png','images/pizza_2.png','images/pizza_3.png'],
+  seafood:['images/seafood_1.png','images/seafood_2.png','images/seafood_3.png'],
+  salad:['images/salad_1.png','images/salad_2.png','images/salad_3.png'],
+  fruit:['images/fruit_1.png','images/fruit_2.png','images/fruit_3.png'],
+  chicken_fillet:['images/chicken_fillet_1.png','images/chicken_fillet_2.png','images/chicken_fillet_3.png'],
+};
+function foodPhoto(name,cat){
+  const pool=LOCAL_FP[cat]||LOCAL_FP['rice'];
+  let h=0;for(let i=0;i<name.length;i++)h=((h<<5)-h)+name.charCodeAt(i)|0;
+  const pid=pool[Math.abs(h)%pool.length];
+  return pid;
 }
+function foodEmoji(name,cat){
+  const map={
+    '黄焖鸡':'🍗','排骨':'🥩','鱼香':'🍛','宫保':'🍗','卤肉':'🥓','酸菜鱼':'🐟','番茄牛':'🍅','蛋炒饭':'🍳','红烧牛肉':'🍜','馄饨':'🥟',
+    '牛肉面':'🍜','炸酱面':'🍝','重庆小面':'🌶️','酸辣粉':'🍜','葱油':'🍝','螺蛳粉':'🍜','刀削面':'🍜','三鲜':'🍜',
+    '麻辣锅底':'🌶️','番茄锅底':'🍅','肥牛':'🥩','羊肉':'🥩','虾滑':'🦐','毛肚':'🫕','鸭血':'🫕','蔬菜':'🥬','菌菇':'🍄',
+    '巨无霸':'🍔','辣鸡腿堡':'🍔','芝士牛':'🍔','鳕鱼堡':'🐟','薯条':'🍟','鸡翅':'🍗','鸡块':'🍗','可乐':'🥤','麦旋风':'🍦','拿铁':'☕','星冰乐':'🧋',
+    '三文鱼':'🍣','寿司':'🍣','鳗鱼饭':'🍱','天妇罗':'🍤','味增':'🍵','加州卷':'🍣','抹茶':'🍵',
+    '炸鸡':'🍗','蜜汁烤':'🍗','韩式炸鸡':'🍗','鸡排':'🍗',
+    '羊肉串':'🍖','蒜香排骨':'🥩','牛肉串':'🥩','生蚝':'🦪','茄子':'🍆','韭菜':'🥬','馒头':'🍞','啤酒':'🍺',
+    '披萨':'🍕','榴莲':'🍕','意式':'🍝','芝士焗':'🧀','蘑菇汤':'🍲',
+    '珍珠奶茶':'🧋','多肉葡萄':'🍇','芝芝莓莓':'🍓','杨枝甘露':'🥭','满杯红柚':'🍊','芋泥':'🧋','柠檬水':'🍋','冰淇淋':'🍦',
+    '肉松小贝':'🧁','半熟芝士':'🧀','提拉米苏':'🍰','芒果千层':'🍰','雪媚娘':'🍡','泡芙':'🥯','芝士蛋糕':'🎂','马卡龙':'🍬',
+    '鸭脖':'🍗','鸭翅':'🍗','坚果':'🥜','牛肉脯':'🥓','芒果干':'🥭','辣条':'🌶️','薯片':'🍟','藕片':'🪷',
+    '西瓜':'🍉','车厘子':'🍒','葡萄':'🍇','果切':'🍉','橙汁':'🍊','草莓':'🍓','蓝莓':'🫐','椰子':'🥥',
+    '小龙虾':'🦞','鲈鱼':'🐟','香辣蟹':'🦀','白灼虾':'🦐','海鲜粥':'🥣','皮皮虾':'🦐',
+    '沙拉':'🥗','鸡胸肉':'🥗','牛油果':'🥑','藜麦':'🥗','酸奶':'🥛','三明治':'🥪',
+    '鸡柳':'🍗','鸡排':'🍗','年糕':'🍡','鸡米花':'🍿','地瓜':'🍠','酸梅汤':'🧃',
+    '波霸':'🧋','布丁':'🍮','柠檬':'🍋','养乐多':'🧃','乌龙茶':'🍵','红茶':'🫖','四季春':'🍃','阿华田':'🍫','可可':'🍫','玛奇朵':'☕','冰淇淋':'🍦',
+    '油条':'🥖','春卷':'🥟','煎饼':'🥞','烤冷面':'🫓','冰糖葫芦':'🍡','糖炒栗子':'🌰',
+  };
+  for(const [k,v] of Object.entries(map)){
+    if(name.includes(k))return v;
+  }
+  return cat==='milkta'?'🧋':cat==='rice'?'🍚':cat==='noodle'?'🍜':cat==='hotpot'?'🍲':cat==='chicken'||cat==='chicken_fillet'?'🍗':cat==='bbq'?'🍖':cat==='burger'?'🍔':cat==='sushi'?'🍣':cat==='pizza'?'🍕':cat==='dessert'?'🍰':cat==='snack'?'🍿':cat==='seafood'?'🦞':cat==='salad'?'🥗':cat==='fruit'?'🍎':'🍽️';
+}
+function menuItemColor(cat){return cat==='milkta'?'#a18cd1':cat==='rice'?'#f093fb':cat==='noodle'?'#f5576c':cat==='hotpot'?'#ff6a88':cat==='chicken_fillet'?'#ff99ac':cat==='bbq'?'#fa709a':cat==='burger'?'#fee140':cat==='sushi'?'#43e97b':cat==='pizza'?'#fccb90':cat==='dessert'?'#fbc2eb':cat==='snack'?'#ffd1ff':cat==='seafood'?'#4facfe':cat==='salad'?'#96fbc4':cat==='fruit'?'#f9f586':'#667eea';}
 
 // ==================== REALISTIC RESTAURANTS ====================
 const REAL_RESTAURANTS = [
@@ -1048,6 +1214,8 @@ const REAL_RESTAURANTS = [
   {name:'百果园',cat:'fruit',rating:4.6,sales:9800,time:25,fee:0,min:20,tags:['新鲜水果','现切果切','坏果包赔'],imgs:['fruit',0]},
   {name:'麻辣诱惑·小龙虾',cat:'seafood',rating:4.6,sales:6200,time:40,fee:0,min:68,tags:['麻辣小龙虾','蒜蓉味','个大饱满'],imgs:['seafood',0]},
   {name:'轻食主义·沙拉',cat:'salad',rating:4.5,sales:3600,time:25,fee:0,min:25,tags:['低卡减脂','鸡胸肉碗','鲜榨果汁'],imgs:['salad',0]},
+  {name:'鸡柳大人·炸鸡年糕',cat:'chicken_fillet',rating:4.7,sales:23000,time:22,fee:0,min:12,tags:['招牌鸡柳','年糕鸡排','超人气','学生最爱'],imgs:['chicken',1]},
+  {name:'1点点',cat:'milkta',rating:4.8,sales:42000,time:22,fee:0,min:10,tags:['波霸奶茶','四季春','冰淇淋红茶','排队王'],imgs:['milkta',3]},
 ];
 
 // Build menu data
@@ -1197,11 +1365,36 @@ const MENU_DATA = {
     {name:'全麦三明治',desc:'鸡胸肉+生菜+番茄+全麦面包',price:22.0,sales:2800,cal:350,img:['burger',0]},
     {name:'蔬菜汤',desc:'胡萝卜+南瓜+洋葱浓汤',price:16.0,sales:2200,cal:120,img:['hotpot',0]},
   ],
+  chicken_fillet: [
+    {name:'招牌无骨鸡柳',desc:'外酥里嫩，秘制腌料，人气No.1',price:12.0,sales:28000,cal:380,img:['chicken',0]},
+    {name:'爆汁大鸡排',desc:'比脸还大的鸡排，剪成小块',price:15.0,sales:22000,cal:520,img:['chicken',1]},
+    {name:'年糕鸡柳双拼',desc:'鸡柳+年糕的王炸组合，必点！',price:18.0,sales:19000,cal:450,img:['chicken',2]},
+    {name:'香酥鸡米花',desc:'一口一个，外酥里嫩停不下来',price:10.0,sales:16000,cal:320,img:['chicken',3]},
+    {name:'年糕串',desc:'外脆里糯的炸年糕，刷上甜辣酱',price:8.0,sales:15000,cal:280,img:['snack',0]},
+    {name:'甘梅地瓜条',desc:'红薯条裹上甘梅粉，酸甜酥脆',price:9.0,sales:13000,cal:250,img:['snack',1]},
+    {name:'炸薯条',desc:'粗薯条，外焦里嫩，配番茄酱',price:8.0,sales:12000,cal:300,img:['snack',2]},
+    {name:'香辣鸡翅（4只）',desc:'秘制香辣腌料，炸到金黄',price:13.0,sales:11000,cal:350,img:['chicken',0]},
+    {name:'鸡柳年糕薯条三合一',desc:'招牌三拼，一次满足三个愿望',price:22.0,sales:18000,cal:520,img:['chicken',1]},
+    {name:'冰镇酸梅汤',desc:'配炸鸡绝了，解腻解渴',price:5.0,sales:25000,cal:80,img:['milkta',0]},
+  ],
+  onedian: [
+    {name:'波霸奶茶',desc:'经典中的经典，Q弹大波霸+醇香奶茶',price:13.0,sales:38000,cal:350,img:['milkta',0]},
+    {name:'四季春茶',desc:'清新茶香，回甘悠长，加珍波椰更绝',price:9.0,sales:35000,cal:80,img:['milkta',1]},
+    {name:'冰淇淋红茶',desc:'香草冰淇淋+红茶，等融化后超好喝',price:15.0,sales:32000,cal:280,img:['milkta',2]},
+    {name:'红茶玛奇朵',desc:'浓郁红茶+奶盖，咸甜交织',price:16.0,sales:28000,cal:300,img:['milkta',3]},
+    {name:'乌龙奶茶',desc:'乌龙茶底+鲜奶，茶香浓郁不甜腻',price:14.0,sales:26000,cal:320,img:['milkta',0]},
+    {name:'阿华田',desc:'麦芽巧克力饮品，加波霸更好喝',price:15.0,sales:24000,cal:380,img:['milkta',1]},
+    {name:'养乐多绿',desc:'养乐多+绿茶，清爽解腻',price:13.0,sales:22000,cal:160,img:['milkta',2]},
+    {name:'布丁奶茶',desc:'一整颗鸡蛋布丁+奶茶，童年的味道',price:14.0,sales:20000,cal:340,img:['milkta',3]},
+    {name:'可可芭蕾',desc:'浓郁可可+牛奶，巧克力控最爱',price:16.0,sales:15000,cal:360,img:['milkta',0]},
+    {name:'柠檬汁',desc:'鲜榨柠檬，酸爽解渴',price:10.0,sales:18000,cal:100,img:['milkta',1]},
+  ],
 };
 
 // Build restaurant objects with menus
 const restaurants = REAL_RESTAURANTS.map((r,i) => {
-  const menuPool = MENU_DATA[r.cat] || MENU_DATA['rice'];
+  const menuCat = r.cat==='chicken_fillet'?'chicken_fillet':r.cat==='milkta'&&r.name==='1点点'?'onedian':r.cat;
+  const menuPool = MENU_DATA[menuCat] || MENU_DATA['rice'];
   const count = Math.min(menuPool.length, 8 + Math.floor(Math.random() * 5));
   const menus = menuPool.slice(0, count).map((m, mi) => ({
     id: `r${i}-m${mi}`,
@@ -1212,7 +1405,9 @@ const restaurants = REAL_RESTAURANTS.map((r,i) => {
     calories: m.cal,
     img: m.img,
   }));
-  return { ...r, id: `r${i}`, menus };
+  const catColors={rice:'#f093fb',noodle:'#f5576c',hotpot:'#ff6a88',bbq:'#fa709a',burger:'#fee140',sushi:'#43e97b',chicken:'#ff99ac',pizza:'#fccb90',milkta:'#a18cd1',dessert:'#fbc2eb',snack:'#ffd1ff',seafood:'#4facfe',salad:'#96fbc4',fruit:'#f9f586',chicken_fillet:'#ff99ac'};
+  const catEmojis={rice:'🍚',noodle:'🍜',hotpot:'🍲',bbq:'🍖',burger:'🍔',sushi:'🍣',chicken:'🍗',pizza:'🍕',milkta:'🧋',dessert:'🍰',snack:'🍿',seafood:'🦞',salad:'🥗',fruit:'🍎',chicken_fillet:'🍗'};
+  return { ...r, id: `r${i}`, menus, color:catColors[r.cat]||'#667eea', emoji:catEmojis[r.cat]||'🍽️' };
 });
 
 // ==================== STATE ====================
@@ -1260,10 +1455,9 @@ function renderRestaurantCards(){
   const filtered = activeCategory==='all' ? restaurants : restaurants.filter(r=>r.cat===activeCategory);
   const container = document.getElementById('restaurant-cards');
   container.innerHTML = filtered.map(r=>{
-    const imgUrl = foodImgUrl(r.imgs[0], r.imgs[1]);
     return `
     <div class="restaurant-card" onclick="openRestaurant('${r.id}')">
-      <img src="${imgUrl}" alt="${r.name}" loading="lazy" onerror="this.outerHTML='<div class=\\'img-fallback\\' style=\\'background:linear-gradient(135deg,${{rice:'#f093fb',noodle:'#f5576c',hotpot:'#ff6a88',bbq:'#fa709a',burger:'#fee140',sushi:'#43e97b',chicken:'#ff99ac',pizza:'#fccb90',milkta:'#a18cd1',dessert:'#fbc2eb',snack:'#ffd1ff',seafood:'#4facfe',salad:'#96fbc4',fruit:'#f9f586'}[r.cat]||'#667eea'},#333);\\'>🥘</div>'">
+      ${renderImg(r.id,r.name,r.cat,r.color,r.emoji,95)}
       <div class="restaurant-info">
         <div>
           <div class="restaurant-name-row">
@@ -1293,8 +1487,9 @@ function openRestaurant(id){
   if(!currentRestaurant)return;
   cart={};
   const r=currentRestaurant;
-  document.getElementById('menu-cover').style.background=`linear-gradient(135deg,${['#f093fb','#f5576c','#ff6a88','#fa709a','#fee140','#43e97b','#ff99ac','#fccb90','#a18cd1','#fbc2eb','#ffd1ff','#4facfe','#96fbc4','#f9f586'][Math.floor(Math.random()*14)]},#444)`;
-  document.getElementById('menu-cover').textContent='🍽️';
+  const mc=document.getElementById('menu-cover');
+  mc.src=`images/${r.cat}_1.png`;
+  mc.onerror=function(){this.onerror=null;this.src='images/menu-cover.png';};
   document.getElementById('menu-name').textContent=r.name;
   const dd = r.fee===0?'免费':`¥${r.fee}`;
   document.getElementById('menu-meta').innerHTML=`<span class="star">★ ${r.rating}</span><span>月售${r.sales>1000?(r.sales/1000).toFixed(0)+'k':r.sales}</span><span>${r.time}分钟送达</span>`;
@@ -1318,10 +1513,10 @@ function renderMenuItems(tab){
   const c=document.getElementById('menu-items-list');
   c.innerHTML=items.map(item=>{
     const inCart=cart[item.id];
-    const imgUrl=item.img?foodImgUrl(item.img[0],item.img[1]):'';
+    const fbColor=menuItemColor(currentRestaurant.cat);
     return `
     <div class="menu-item">
-      ${item.img?`<img src="${imgUrl}" alt="${item.name}" loading="lazy" onerror="this.outerHTML='<div class=\\'img-fb\\' style=\\'background:linear-gradient(135deg,#eee,#ddd)\\'>🍽️</div>'">`:`<div class="img-fb" style="background:linear-gradient(135deg,#eee,#ddd)">🍽️</div>`}
+      ${renderImg(item.id,item.name,currentRestaurant.cat,fbColor,foodEmoji(item.name,currentRestaurant.cat),85)}
       <div class="menu-item-info">
         <div class="menu-item-name">${item.name}</div>
         <div class="menu-item-desc">${item.desc}</div>
@@ -1382,10 +1577,12 @@ function goCheckout(){
   const items=Object.values(cart);
   const tp=items.reduce((s,c)=>s+c.item.price*c.qty,0);
   document.getElementById('checkout-items').innerHTML=items.map(c=>{
-    const imgUrl=c.item.img?foodImgUrl(c.item.img[0],c.item.img[1]):'';
+    const fbColor=menuItemColor(currentRestaurant?currentRestaurant.cat:'rice');
+    const cimg=foodPhoto(c.item.name,currentRestaurant?currentRestaurant.cat:'rice');
     return `
     <div class="order-item">
-      ${c.item.img?`<img src="${imgUrl}" alt="${c.item.name}" loading="lazy" onerror="this.outerHTML='<div class=\\'oi-fb\\' style=\\'background:#eee\\'>🍽️</div>'">`:`<div class="oi-fb" style="background:#eee">🍽️</div>`}
+      <img src="${cimg}" alt="${c.item.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#eee">
+      <div class="oi-fb" style="display:none;background:linear-gradient(135deg,${fbColor},${fbColor}dd);font-size:22px">${foodEmoji(c.item.name,currentRestaurant?currentRestaurant.cat:'rice')}</div>
       <span class="order-item-name">${c.item.name}</span>
       <span class="order-item-qty">×${c.qty}</span>
       <span class="order-item-price">¥${c.item.price.toFixed(1)}</span>
@@ -2033,10 +2230,120 @@ function loadCheckoutAddress(){
   updateAddressDisplay(addr);
 }
 
+// ==================== COUPON SYSTEM ====================
+const COUPON_POOL=[
+  {amount:100,cond:'无门槛',color:'#FF2D2D',bg:'linear-gradient(135deg,#FF2D2D,#FF6B6B)',title:'100元无门槛红包',prob:3},
+  {amount:50,cond:'无门槛',color:'#FF6B35',bg:'linear-gradient(135deg,#FF6B35,#FF8C42)',title:'50元无门槛红包',prob:8},
+  {amount:30,cond:'满60可用',color:'#FFB800',bg:'linear-gradient(135deg,#F5A623,#FFB800)',title:'30元满减红包',prob:15},
+  {amount:20,cond:'满40可用',color:'#E8781A',bg:'linear-gradient(135deg,#E8781A,#F09840)',title:'20元满减红包',prob:20},
+  {amount:15,cond:'满30可用',color:'#8B5CF6',bg:'linear-gradient(135deg,#7C3AED,#8B5CF6)',title:'15元满减红包',prob:22},
+  {amount:10,cond:'满20可用',color:'#3B82F6',bg:'linear-gradient(135deg,#2563EB,#3B82F6)',title:'10元满减红包',prob:25},
+  {amount:5,cond:'无门槛',color:'#22C55E',bg:'linear-gradient(135deg,#16A34A,#22C55E)',title:'5元无门槛红包',prob:7},
+];
+COUPON_POOL.forEach(c=>c.prob=c.prob/100);
+
+let userCoupons=JSON.parse(localStorage.getItem('userCoupons')||'[]');
+let couponClaimedToday=localStorage.getItem('couponDate')===new Date().toDateString();
+
+function openCouponModal(){
+  document.getElementById('coupon-overlay').classList.add('show');
+  document.getElementById('app').style.overflow='hidden';
+  renderCouponList();
+  updateClaimBtn();
+}
+function closeCouponModal(){
+  document.getElementById('coupon-overlay').classList.remove('show');
+  document.getElementById('app').style.overflow='';
+}
+function updateClaimBtn(){
+  const btn=document.getElementById('coupon-claim-btn');
+  if(couponClaimedToday){btn.textContent='✅ 今日已领取';btn.disabled=true;btn.style.animation='none';}
+  else{btn.textContent='🤑 立即领取';btn.disabled=false;btn.style.animation='claimPulse 2s infinite';}
+}
+function claimCoupon(){
+  if(couponClaimedToday){showToast('今日已领取，明天再来吧~');return;}
+  const btn=document.getElementById('coupon-claim-btn');
+  btn.disabled=true;btn.textContent='🎰 抽券中...';btn.style.animation='none';
+  const reveal=document.getElementById('coupon-reveal');
+  const emojis=['🎫','🎟️','✨','💫','🌟','🎯'];let spinCount=0;
+  const spinInterval=setInterval(()=>{
+    reveal.innerHTML=`<span style="font-size:40px">${emojis[spinCount%emojis.length]}</span><br><span style="font-size:13px;color:#999">正在为您匹配最佳优惠...</span>`;
+    spinCount++;
+  },150);
+  setTimeout(()=>{
+    clearInterval(spinInterval);
+    const r=Math.random();let cumulative=0;let won=COUPON_POOL[COUPON_POOL.length-1];
+    for(const c of COUPON_POOL){cumulative+=c.prob;if(r<=cumulative){won=c;break;}}
+    const coupon={...won,id:Date.now(),claimed:new Date().toISOString()};
+    userCoupons.unshift(coupon);
+    localStorage.setItem('userCoupons',JSON.stringify(userCoupons));
+    couponClaimedToday=true;
+    localStorage.setItem('couponDate',new Date().toDateString());
+    const isJackpot=won.amount>=100;
+    reveal.innerHTML=`
+      <div style="font-size:${isJackpot?'60px':'44px'}">${isJackpot?'👑🎉':'🎫'}</div>
+      <div style="font-size:${isJackpot?'22px':'18px'};font-weight:800;color:${won.color};margin:4px 0">${isJackpot?'天选之人！':''} 获得 <span style="font-size:${isJackpot?'30px':'24px'}">¥${won.amount}</span> ${won.cond}券</div>
+      <div style="font-size:12px;color:#999">${isJackpot?'运气爆棚！今天别点了，用这张就够了！':'已存入你的券包'}</div>
+    `;
+    if(isJackpot)spawnCouponConfetti();
+    renderCouponList();updateClaimBtn();updateCouponBadge();
+  },1200);
+}
+function renderCouponList(){
+  const container=document.getElementById('coupon-list');
+  const countEl=document.getElementById('coupon-count');
+  if(userCoupons.length===0){
+    container.innerHTML='<div style="text-align:center;color:#ccc;padding:20px;font-size:14px">还没有券，快领一张吧 🎫</div>';
+    countEl.textContent='';
+  }else{
+    container.innerHTML=userCoupons.slice(0,10).map((c,i)=>{
+      const isNew=i===0&&!c.seen;
+      if(isNew){c.seen=true;localStorage.setItem('userCoupons',JSON.stringify(userCoupons));}
+      return `
+      <div class="coupon-card${c.amount>=100?' jackpot':''}${isNew?' cc-new':''}">
+        <div class="cc-left" style="background:${c.bg}"><span class="cc-amount">¥${c.amount}</span><span class="cc-unit">${c.cond}</span></div>
+        <div class="cc-right"><div class="cc-title">${c.title}</div><div class="cc-cond">${c.cond==='无门槛'?'全场通用 · 无最低消费':c.cond}</div></div>
+        <div class="cc-status"><button class="cc-use-btn" onclick="event.stopPropagation();useCoupon(${c.id})">去使用</button></div>
+      </div>`;
+    }).join('');
+    countEl.textContent=`共 ${userCoupons.length} 张券 · 点击"去使用"可下单抵扣（假装 😄）`;
+    localStorage.setItem('userCoupons',JSON.stringify(userCoupons));
+  }
+}
+function useCoupon(id){
+  const c=userCoupons.find(c=>c.id==id);
+  closeCouponModal();
+  showToast(`✅ 已选 ¥${c.amount} ${c.cond}券 · 下单时可抵扣（假的！）`);
+}
+function updateCouponBadge(){
+  const bar=document.getElementById('coupon-bar-text');
+  if(userCoupons.length>0&&bar){
+    const best=userCoupons.reduce((a,b)=>a.amount>b.amount?a:b);
+    bar.innerHTML=`🎫 ${userCoupons.length}张券可用 · 最高<span style="color:var(--red);font-weight:600">¥${best.amount}</span>`;
+  }
+}
+function spawnCouponConfetti(){
+  const colors=['#FF2D2D','#FFB800','#FF6B35','#FFD700','#FFA500','#FF4500','#FF6347','#FFE066'];
+  for(let i=0;i<100;i++){setTimeout(()=>{
+    const d=document.createElement('div');d.className='confetti-piece';
+    d.style.left=Math.random()*100+'%';d.style.top=-(Math.random()*40)+'px';
+    d.style.background=colors[Math.floor(Math.random()*colors.length)];
+    d.style.width=(6+Math.random()*12)+'px';d.style.height=(6+Math.random()*12)+'px';
+    d.style.borderRadius=Math.random()>.5?'50%':'3px';
+    d.style.animationDuration=(2+Math.random()*3)+'s';
+    document.body.appendChild(d);setTimeout(()=>d.remove(),4000);
+  },i*15);}
+}
+setTimeout(()=>updateCouponBadge(),1500);
+
+function renderImg(id,name,cat,color,emoji,size){
+  const src=foodPhoto(name,cat);
+  return `<img src="${src}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:${size}px;height:${size}px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#eee"><div class="img-fb" style="display:none;background:linear-gradient(135deg,${color},${color}dd);font-size:${Math.floor(size*0.45)}px">${emoji}</div>`;
+}
+
 // ==================== INIT ====================
 renderRestaurantCards();
 document.getElementById('cart-bar').style.display='none';
-// Trigger geolocation on load
 setTimeout(()=>refreshLocation(),500);
 </script>
 </body>
