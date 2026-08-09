@@ -708,6 +708,12 @@ body{
 }
 /* img error fallback */
 img[data-src]{background:#eee}
+/* Food illustration animations */
+@keyframes sparkleFloat{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
+@keyframes steamRise{0%{opacity:0;transform:translateY(0) scale(.8)}30%{opacity:.7}100%{opacity:0;transform:translateY(-20px) scale(1.5)}}
+@keyframes bubblePop{0%,100%{opacity:.3;transform:translateY(0) scale(.8)}50%{opacity:.9;transform:translateY(-4px) scale(1.2)}}
+.food-illo-card{transition:transform .2s}
+.food-illo-card:hover{transform:scale(1.03)}
 </style>
 </head>
 <body>
@@ -1053,101 +1059,37 @@ img[data-src]{background:#eee}
 </div>
 
 <script>
-// ==================== UNSPLASH FOOD PHOTOS ====================
-// ==================== REAL FOOD PHOTOS (verified Unsplash IDs) ====================
-const FP={
-rice:[
-  'photo-1603133872878-684f208fb84b','photo-1569058242567-93de6e36f8f8',
-  'photo-1645112412299-70a7ed0d0b7c','photo-1596797038530-2c107229654b',
-  'photo-1540189549336-e6e99c3679fe','photo-1476224203421-9ac39bcb3327',
-  'photo-1455619452474-d2be8b1e70cd','photo-1414235077428-338989a2e8c0',
-  'photo-1467003909585-2f8a72700288','photo-1432139509613-5c4255a1a894',
-  'photo-1505253758473-96b7015fcd40','photo-1546069901-ba9599a7e63c',
-],
-noodle:[
-  'photo-1569718212165-3a8278d5f624','photo-1555126634-323283e090fa',
-  'photo-1591814468924-caf88d1232e1','photo-1582878826629-29b7ad1cdc43',
-  'photo-1552611052-33e04de3e1aa','photo-1526318893346-25e43b72b717',
-  'photo-1570546179774-7fe79e8adc7b','photo-1504544750208-dc0358e63f7f',
-  'photo-1563379926898-05f4575a45d8','photo-1604908551055-9a38615b7517',
-],
-hotpot:[
-  'photo-1617196034796-73dfa7b1fd56','photo-1555939594-58d7cb561ad1',
-  'photo-1544025162-d76694265947','photo-1563245372-f2e1a4b3e65a',
-  'photo-1583394293214-28ded15ee548','photo-1505253758473-96b7015fcd40',
-  'photo-1604503468506-a8da13d82791','photo-1596797038530-2c107229654b',
-],
-chicken:[
-  'photo-1626645738196-c2a7c87a8f58','photo-1562967914-608f82629710',
-  'photo-1604503468506-a8da13d82791','photo-1567620832903-9fc6debc209f',
-  'photo-1598515214211-89d3c73ae83b','photo-1432139509613-5c4255a1a894',
-  'photo-1615937722923-67f6deaf2cc9','photo-1569058242567-93de6e36f8f8',
-  'photo-1604908551055-9a38615b7517','photo-1645112412299-70a7ed0d0b7c',
-],
-burger:[
-  'photo-1568901346375-23c9450c58cd','photo-1572802419224-296b0aeee0d9',
-  'photo-1586816001966-79b736744398','photo-1550547660-d9450f859349',
-  'photo-1594212699903-fec0965e8d1c','photo-1603060520840-4cf2f2d2fb1f',
-  'photo-1546554137-f86b9593a222','photo-1561758033-d89a9ad46330',
-],
-sushi:[
-  'photo-1579871494447-9811cf80d66c','photo-1553621042-f6e147245754',
-  'photo-1540648639573-8c848de23f0a','photo-1611143669185-af224c5e3252',
-  'photo-1551218808-94e220e084d2','photo-1534482421-64566f976cfa',
-  'photo-1582450871972-ab5ca641643d','photo-1579584425555-c3ce17fd4351',
-],
-milkta:[
-  'photo-1558857563-b371033873b8','photo-1544145945-f90425340c7e',
-  'photo-1571934811356-5cc372b59197','photo-1461023058943-07fcbe16d735',
-  'photo-1525803377221-4f6ccdaa5133','photo-1485808191679-7f8cd570d6a6',
-  'photo-1513002749550-c59d786b8e6c','photo-1563227817-68b2b15fe7e5',
-  'photo-1499638678241-29f23b24a2e5','photo-1556679343-c7306c1976bc',
-],
-dessert:[
-  'photo-1578985545062-69928b1d9587','photo-1488477181946-6428a0291777',
-  'photo-1563805042-7684c019e1cb','photo-1551024601-bec78aea704b',
-  'photo-1509365465985-25d11c17e812','photo-1464349093731-7b321b6ff2b2',
-  'photo-1481391319762-47d514f4b85f','photo-1533134242443-d4fd215305ad',
-],
-snack:[
-  'photo-1625220194771-7ebdea0b70b9','photo-1606755962773-d324e1a13086',
-  'photo-1576866116707-23c7d9a5e04e','photo-1613919113640-257aa8c8cc1e',
-  'photo-1553456558-aff26085d1af','photo-1563379926898-05f4575a45d8',
-  'photo-1604503468506-a8da13d82791','photo-1626645738196-c2a7c87a8f58',
-],
-bbq:[
-  'photo-1558030006-450675393462','photo-1529692236671-f1f6cf9683ba',
-  'photo-1615937722923-67f6deaf2cc9','photo-1555939594-58d7cb561ad1',
-  'photo-1544025162-d76694265947','photo-1604503468506-a8da13d82791',
-  'photo-1505253758473-96b7015fcd40','photo-1626645738196-c2a7c87a8f58',
-],
-pizza:[
-  'photo-1565299624946-b28f40a0ae38','photo-1513104890138-7c749659a591',
-  'photo-1574071318508-1cdbab80d002','photo-1593560708920-61dd98c46a4e',
-  'photo-1594007654729-407eedc4be65','photo-1588315029754-ed603628a2b3',
-],
-seafood:[
-  'photo-1615141982883-c7ad0e69fd62','photo-1565680018434-b513d5e5fd47',
-  'photo-1559737558-2f5a35f4523f','photo-1559742811-8227736919a7',
-  'photo-1565557623262-b51c2513a641','photo-1534604973900-c43ab4c2e0ab',
-],
-salad:[
-  'photo-1512621776951-a57141f2eefd','photo-1540420773420-3366772f4999',
-  'photo-1546069901-ba9599a7e63c','photo-1505253716362-afaea1d3d1af',
-  'photo-1490645935967-10de6ba17061','photo-1498837167922-ddd27525d352',
-],
-fruit:[
-  'photo-1610832958506-aa56368176cf','photo-1464965911864-746e8c79969f',
-  'photo-1488459717020-7fddde40cba3','photo-1519996529935-86ab5c48da2f',
-  'photo-1474979266404-7eaacbcd87e3','photo-1481349753207-1b97e2ae9c45',
-],
-};
-function foodPhoto(name,cat,size){
-  size=size||400;
-  const pool=FP[cat]||FP['rice'];
-  let h=0;for(let i=0;i<name.length;i++)h=((h<<5)-h)+name.charCodeAt(i)|0;
-  const pid=pool[Math.abs(h)%pool.length];
-  return `https://images.unsplash.com/${pid}?w=${size}&h=${size}&fit=crop&auto=format`;
+// ==================== ANIME-STYLE FOOD ILLUSTRATIONS ====================
+function foodIllustration(cat,color,emoji,size){
+  const s=size, q=s/4, h=s/2;
+  // Decorative sparkle dots
+  const sparkles=`<i style="position:absolute;top:${s*0.08}px;right:${s*0.15}px;width:${Math.max(3,s*0.08)}px;height:${Math.max(3,s*0.08)}px;background:rgba(255,255,255,.7);border-radius:50%;animation:sparkleFloat 3s ease-in-out infinite;font-style:normal"></i><i style="position:absolute;top:${s*0.25}px;left:${s*0.08}px;width:${Math.max(2,s*0.05)}px;height:${Math.max(2,s*0.05)}px;background:rgba(255,255,255,.5);border-radius:50%;animation:sparkleFloat 2.5s ease-in-out .6s infinite;font-style:normal"></i><i style="position:absolute;bottom:${s*0.3}px;right:${s*0.1}px;width:${Math.max(2,s*0.06)}px;height:${Math.max(2,s*0.06)}px;background:rgba(255,255,255,.6);border-radius:50%;animation:sparkleFloat 3.5s ease-in-out 1.2s infinite;font-style:normal"></i>`;
+  // Steam wisps for hot food
+  const steam=`
+    <div style="position:absolute;top:${s*0.02}px;left:${s*0.3}px;width:${s*0.12}px;height:${s*0.18}px;background:radial-gradient(ellipse at center,rgba(255,255,255,.5) 0%,transparent 70%);border-radius:50%;animation:steamRise 2.5s ease-out infinite;opacity:0"></div>
+    <div style="position:absolute;top:${s*0.06}px;right:${s*0.3}px;width:${s*0.1}px;height:${s*0.15}px;background:radial-gradient(ellipse at center,rgba(255,255,255,.4) 0%,transparent 70%);border-radius:50%;animation:steamRise 2.8s ease-out .8s infinite;opacity:0"></div>
+    <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:${s*0.08}px;height:${s*0.2}px;background:radial-gradient(ellipse at center,rgba(255,255,255,.45) 0%,transparent 70%);border-radius:50%;animation:steamRise 3s ease-out 1.5s infinite;opacity:0"></div>`;
+  // Container shapes per category
+  const pot=cat==='hotpot'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.82)+'px;height:'+(s*0.55)+'px;background:linear-gradient(180deg,#e8ddd0,#cfbfa8);border-radius:50% 50% 40% 40%;border:'+(s*0.025)+'px solid #b8a080;box-shadow:0 '+(s*0.04)+'px '+(s*0.12)+'px rgba(0,0,0,.1),inset 0 '+(s*0.03)+'px 0 rgba(255,255,255,.4)"></div><div style="position:absolute;bottom:'+(s*0.16)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.56)+'px;height:'+(s*0.22)+'px;background:linear-gradient(180deg,rgba(220,60,30,.55),rgba(180,30,10,.75));border-radius:50%;box-shadow:0 '+(s*0.02)+'px '+(s*0.06)+'px rgba(200,40,20,.3)"></div><div style="position:absolute;bottom:'+(s*0.18)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.2)+'px;height:'+(s*0.06)+'px;background:rgba(255,200,100,.6);border-radius:50%;animation:bubblePop 1.5s ease-in-out infinite"></div><div style="position:absolute;bottom:'+(s*0.28)+'px;left:'+(s*0.25)+'px;width:'+(s*0.14)+'px;height:'+(s*0.05)+'px;background:rgba(255,180,80,.4);border-radius:50%;animation:bubblePop 2s ease-in-out .5s infinite"></div>' : '';
+  const bowl=cat==='rice'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.78)+'px;height:'+(s*0.48)+'px;background:linear-gradient(180deg,#fafaf8,#efe9e0 55%,#e0d5c5 100%);border-radius:'+(s*0.06)+'px '+(s*0.06)+'px '+(s*0.28)+'px '+(s*0.28)+'px;border:'+(s*0.022)+'px solid #d5c8b5;box-shadow:0 '+(s*0.04)+'px '+(s*0.12)+'px rgba(0,0,0,.08),inset 0 '+(s*0.02)+'px '+(s*0.05)+'px rgba(255,255,255,.9)"></div><div style="position:absolute;bottom:'+(s*0.2)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.58)+'px;height:'+(s*0.26)+'px;background:linear-gradient(180deg,#fffef9,#f7f2ea);border-radius:50%;box-shadow:0 -'+(s*0.02)+'px '+(s*0.04)+'px rgba(0,0,0,.04)"></div>' : '';
+  const noodleBowl=cat==='noodle'?'<div style="position:absolute;bottom:'+(s*0.03)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.8)+'px;height:'+(s*0.56)+'px;background:linear-gradient(180deg,#faf7f0,#e8dcc8 55%,#d4c4a8 100%);border-radius:'+(s*0.05)+'px '+(s*0.05)+'px '+(s*0.32)+'px '+(s*0.32)+'px;border:'+(s*0.022)+'px solid #c8b490;box-shadow:0 '+(s*0.04)+'px '+(s*0.12)+'px rgba(0,0,0,.08)"></div><div style="position:absolute;bottom:'+(s*0.22)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.62)+'px;height:'+(s*0.28)+'px;background:linear-gradient(180deg,rgba(180,120,60,.18),rgba(160,100,40,.35));border-radius:50%"></div><div style="position:absolute;top:'+(s*0.38)+'px;left:'+(s*0.15)+'px;width:'+(s*0.06)+'px;height:'+(s*0.4)+'px;background:linear-gradient(180deg,#d4b896,#c4a078);border-radius:'+(s*0.02)+'px;transform:rotate(8deg);box-shadow:'+(s*0.14)+'px -'+(s*0.03)+'px 0 #d4b896"></div>' : '';
+  const basket=cat==='chicken'||cat==='chicken_fillet'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.7)+'px;height:'+(s*0.44)+'px;background:linear-gradient(180deg,#fff 0%,#f5ede0 60%,#e8d8c0 100%);border-radius:'+(s*0.03)+'px '+(s*0.03)+'px '+(s*0.16)+'px '+(s*0.16)+'px;border:'+(s*0.022)+'px solid #d8c0a0;box-shadow:0 '+(s*0.04)+'px '+(s*0.1)+'px rgba(0,0,0,.07)"></div><div style="position:absolute;top:'+(s*0.28)+'px;left:'+(s*0.1)+'px;right:'+(s*0.1)+'px;height:'+(s*0.07)+'px;background:repeating-linear-gradient(90deg,'+color+' 0px,'+color+' '+(s*0.06)+'px,transparent '+(s*0.06)+'px,transparent '+(s*0.14)+'px);border-radius:3px;opacity:.55"></div>' : '';
+  const cup=cat==='milkta'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.5)+'px;height:'+(s*0.62)+'px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(220,190,160,.4) 25%,rgba(180,130,90,.55) 100%);border-radius:'+(s*0.03)+'px '+(s*0.03)+'px '+(s*0.1)+'px '+(s*0.1)+'px;border:'+(s*0.02)+'px solid rgba(170,130,100,.4);box-shadow:0 '+(s*0.03)+'px '+(s*0.1)+'px rgba(0,0,0,.08)"></div><div style="position:absolute;top:'+(s*0.12)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.54)+'px;height:'+(s*0.1)+'px;background:rgba(255,255,255,.7);border-radius:'+(s*0.06)+'px '+(s*0.06)+'px 0 0"></div><div style="position:absolute;top:'+(s*0.2)+'px;right:'+(s*0.2)+'px;width:'+(s*0.05)+'px;height:'+(s*0.28)+'px;background:rgba(255,255,255,.5);border-radius:'+(s*0.02)+'px;transform:rotate(8deg)"></div><div style="position:absolute;bottom:'+(s*0.14)+'px;left:'+(s*0.24)+'px;width:'+(s*0.07)+'px;height:'+(s*0.07)+'px;background:#3a2218;border-radius:50%;box-shadow:'+(s*0.12)+'px -'+(s*0.03)+'px 0 #3a2218,'+(s*0.1)+'px '+(s*0.05)+'px 0 #3a2218"></div>' : '';
+  const plate=cat==='sushi'||cat==='seafood'||cat==='bbq'||cat==='pizza'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.82)+'px;height:'+(s*0.16)+'px;background:linear-gradient(180deg,#fefefe,#f2ece4);border-radius:50%;border:'+(s*0.018)+'px solid #e0d6c8;box-shadow:0 '+(s*0.03)+'px '+(s*0.08)+'px rgba(0,0,0,.06)"></div>' : '';
+  const burgerStack=cat==='burger'?'<div style="position:absolute;bottom:'+(s*0.14)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.74)+'px;height:'+(s*0.52)+'px"><div style="position:absolute;bottom:0;left:-'+(s*0.02)+'px;right:-'+(s*0.02)+'px;height:'+(s*0.16)+'px;background:linear-gradient(180deg,#f0b860,#e09830);border-radius:0 0 '+(s*0.15)+'px '+(s*0.15)+'px"></div><div style="position:absolute;bottom:'+(s*0.13)+'px;left:-'+(s*0.03)+'px;right:-'+(s*0.03)+'px;height:'+(s*0.05)+'px;background:#5a3020;border-radius:2px"></div><div style="position:absolute;bottom:'+(s*0.17)+'px;left:-'+(s*0.04)+'px;right:-'+(s*0.04)+'px;height:'+(s*0.07)+'px;background:#5a9a3a;border-radius:2px"></div><div style="position:absolute;bottom:'+(s*0.22)+'px;left:-'+(s*0.01)+'px;right:-'+(s*0.01)+'px;height:'+(s*0.05)+'px;background:#f0b860;border-radius:2px"></div><div style="position:absolute;top:0;left:0;right:0;height:'+(s*0.18)+'px;background:linear-gradient(180deg,#f5d080,#e8b040);border-radius:'+(s*0.16)+'px '+(s*0.16)+'px 0 0;box-shadow:0 '+(s*0.02)+'px '+(s*0.04)+'px rgba(0,0,0,.05)"></div><div style="position:absolute;top:'+(s*0.04)+'px;left:'+(s*0.15)+'px;width:'+(s*0.04)+'px;height:'+(s*0.03)+'px;background:rgba(255,255,255,.4);border-radius:50%;box-shadow:'+(s*0.12)+'px '+(s*0.02)+'px 0 rgba(255,255,255,.3),'+(s*0.24)+'px -'+(s*0.01)+'px 0 rgba(255,255,255,.25)"></div></div>' : '';
+  const cake=cat==='dessert'?'<div style="position:absolute;bottom:'+(s*0.06)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.4)+'px;height:'+(s*0.22)+'px;background:linear-gradient(180deg,#fefefe,#f2e8dc);border-radius:2px 2px '+(s*0.04)+'px '+(s*0.04)+'px;box-shadow:0 '+(s*0.03)+'px '+(s*0.08)+'px rgba(0,0,0,.06)"></div><div style="position:absolute;bottom:'+(s*0.26)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.14)+'px;height:'+(s*0.18)+'px;background:linear-gradient(180deg,#eee,#ddd);border-radius:'+(s*0.02)+'px"></div><div style="position:absolute;bottom:'+(s*0.38)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.58)+'px;height:'+(s*0.14)+'px;background:linear-gradient(180deg,#fefefe,#f2e8dc);border-radius:'+(s*0.05)+'px;box-shadow:0 '+(s*0.02)+'px '+(s*0.06)+'px rgba(0,0,0,.05)"></div>' : '';
+  const bowl2=cat==='salad'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.8)+'px;height:'+(s*0.38)+'px;background:linear-gradient(180deg,#d4a874,#b8895a);border-radius:40% 40% '+(s*0.14)+'px '+(s*0.14)+'px;box-shadow:0 '+(s*0.04)+'px '+(s*0.1)+'px rgba(0,0,0,.12)"></div>' : '';
+  const snackBox=cat==='snack'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.62)+'px;height:'+(s*0.5)+'px;background:linear-gradient(180deg,#fffef9,#f6efe4);border:'+(s*0.022)+'px solid #e0d0b8;border-radius:'+(s*0.03)+'px;box-shadow:0 '+(s*0.04)+'px '+(s*0.1)+'px rgba(0,0,0,.06)"></div><div style="position:absolute;top:'+(s*0.32)+'px;left:'+(s*0.12)+'px;right:'+(s*0.12)+'px;height:'+(s*0.06)+'px;background:repeating-linear-gradient(90deg,'+color+'88 0px,'+color+'88 '+(s*0.07)+'px,transparent '+(s*0.07)+'px,transparent '+(s*0.14)+'px);border-radius:2px"></div>' : '';
+  const basket2=cat==='fruit'?'<div style="position:absolute;bottom:'+(s*0.04)+'px;left:50%;transform:translateX(-50%);width:'+(s*0.72)+'px;height:'+(s*0.42)+'px;background:linear-gradient(180deg,#f0d090,#d8b058);border-radius:'+(s*0.05)+'px '+(s*0.05)+'px '+(s*0.16)+'px '+(s*0.16)+'px;box-shadow:0 '+(s*0.04)+'px '+(s*0.1)+'px rgba(0,0,0,.1)"></div><div style="position:absolute;bottom:'+(s*0.18)+'px;left:'+(s*0.08)+'px;right:'+(s*0.08)+'px;height:'+(s*0.07)+'px;background:repeating-linear-gradient(90deg,#c49440 0px,#c49440 '+(s*0.03)+'px,#d8b058 '+(s*0.03)+'px,#d8b058 '+(s*0.06)+'px);border-radius:2px"></div>' : '';
+  const hasSteam=cat==='rice'||cat==='noodle'||cat==='hotpot';
+  const emojiTop=cat==='milkta'?s*0.22:(cat==='burger'?s*0.18:(cat==='dessert'?s*0.12:(cat==='hotpot'?s*0.15:s*0.12)));
+  return `<div style="position:relative;width:${s}px;height:${s}px;border-radius:8px;background:linear-gradient(145deg,${color}18 0%,${color}38 40%,${color}22 100%);overflow:hidden;flex-shrink:0" class="food-illo-card">
+    ${sparkles}
+    ${pot}${bowl}${noodleBowl}${basket}${cup}${plate}${burgerStack}${cake}${bowl2}${snackBox}${basket2}
+    ${hasSteam?steam:''}
+    <div style="position:absolute;top:${emojiTop}px;left:50%;transform:translateX(-50%);font-size:${s*0.4}px;filter:drop-shadow(0 ${s*0.02}px ${s*0.04}px rgba(0,0,0,.12));z-index:2;line-height:1">${emoji}</div>
+    <div style="position:absolute;top:${s*0.06}px;left:${s*0.1}px;width:${s*0.22}px;height:${s*0.22}px;background:radial-gradient(circle,rgba(255,255,255,.25) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
+  </div>`;
 }
 function foodEmoji(name,cat){
   const map={
@@ -1562,11 +1504,11 @@ function goCheckout(){
   const tp=items.reduce((s,c)=>s+c.item.price*c.qty,0);
   document.getElementById('checkout-items').innerHTML=items.map(c=>{
     const fbColor=menuItemColor(currentRestaurant?currentRestaurant.cat:'rice');
-    const cimg=foodPhoto(c.item.name,currentRestaurant?currentRestaurant.cat:'rice',200);
+    const cat2=currentRestaurant?currentRestaurant.cat:'rice';
+    const emo2=foodEmoji(c.item.name,cat2);
     return `
     <div class="order-item">
-      <img src="${cimg}" alt="${c.item.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#eee">
-      <div class="oi-fb" style="display:none;background:linear-gradient(135deg,${fbColor},${fbColor}dd);font-size:22px">${foodEmoji(c.item.name,currentRestaurant?currentRestaurant.cat:'rice')}</div>
+      ${foodIllustration(cat2,fbColor,emo2,44)}
       <span class="order-item-name">${c.item.name}</span>
       <span class="order-item-qty">×${c.qty}</span>
       <span class="order-item-price">¥${c.item.price.toFixed(1)}</span>
@@ -2321,8 +2263,7 @@ function spawnCouponConfetti(){
 setTimeout(()=>updateCouponBadge(),1500);
 
 function renderImg(id,name,cat,color,emoji,size){
-  const src=foodPhoto(name,cat,size);
-  return `<img src="${src}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:${size}px;height:${size}px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#eee"><div class="img-fb" style="display:none;background:linear-gradient(135deg,${color},${color}dd);font-size:${Math.floor(size*0.45)}px">${emoji}</div>`;
+  return foodIllustration(cat,color,emoji,size);
 }
 
 // ==================== INIT ====================
