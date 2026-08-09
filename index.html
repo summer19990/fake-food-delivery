@@ -1142,28 +1142,12 @@ fruit:[
   'photo-1474979266404-7eaacbcd87e3','photo-1481349753207-1b97e2ae9c45',
 ],
 };
-const LOCAL_FP={
-  rice:['images/rice_1.png','images/rice_2.png','images/rice_3.png'],
-  noodle:['images/noodle_1.png','images/noodle_2.png','images/noodle_3.png'],
-  hotpot:['images/hotpot_1.png','images/hotpot_2.png','images/hotpot_3.png'],
-  chicken:['images/chicken_1.png','images/chicken_2.png','images/chicken_3.png'],
-  burger:['images/burger_1.png','images/burger_2.png','images/burger_3.png'],
-  sushi:['images/sushi_1.png','images/sushi_2.png','images/sushi_3.png'],
-  milkta:['images/milkta_1.png','images/milkta_2.png','images/milkta_3.png'],
-  dessert:['images/dessert_1.png','images/dessert_2.png','images/dessert_3.png'],
-  snack:['images/snack_1.png','images/snack_2.png','images/snack_3.png'],
-  bbq:['images/bbq_1.png','images/bbq_2.png','images/bbq_3.png'],
-  pizza:['images/pizza_1.png','images/pizza_2.png','images/pizza_3.png'],
-  seafood:['images/seafood_1.png','images/seafood_2.png','images/seafood_3.png'],
-  salad:['images/salad_1.png','images/salad_2.png','images/salad_3.png'],
-  fruit:['images/fruit_1.png','images/fruit_2.png','images/fruit_3.png'],
-  chicken_fillet:['images/chicken_fillet_1.png','images/chicken_fillet_2.png','images/chicken_fillet_3.png'],
-};
-function foodPhoto(name,cat){
-  const pool=LOCAL_FP[cat]||LOCAL_FP['rice'];
+function foodPhoto(name,cat,size){
+  size=size||400;
+  const pool=FP[cat]||FP['rice'];
   let h=0;for(let i=0;i<name.length;i++)h=((h<<5)-h)+name.charCodeAt(i)|0;
   const pid=pool[Math.abs(h)%pool.length];
-  return pid;
+  return `https://images.unsplash.com/${pid}?w=${size}&h=${size}&fit=crop&auto=format`;
 }
 function foodEmoji(name,cat){
   const map={
@@ -1578,7 +1562,7 @@ function goCheckout(){
   const tp=items.reduce((s,c)=>s+c.item.price*c.qty,0);
   document.getElementById('checkout-items').innerHTML=items.map(c=>{
     const fbColor=menuItemColor(currentRestaurant?currentRestaurant.cat:'rice');
-    const cimg=foodPhoto(c.item.name,currentRestaurant?currentRestaurant.cat:'rice');
+    const cimg=foodPhoto(c.item.name,currentRestaurant?currentRestaurant.cat:'rice',200);
     return `
     <div class="order-item">
       <img src="${cimg}" alt="${c.item.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#eee">
@@ -2337,7 +2321,7 @@ function spawnCouponConfetti(){
 setTimeout(()=>updateCouponBadge(),1500);
 
 function renderImg(id,name,cat,color,emoji,size){
-  const src=foodPhoto(name,cat);
+  const src=foodPhoto(name,cat,size);
   return `<img src="${src}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:${size}px;height:${size}px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#eee"><div class="img-fb" style="display:none;background:linear-gradient(135deg,${color},${color}dd);font-size:${Math.floor(size*0.45)}px">${emoji}</div>`;
 }
 
